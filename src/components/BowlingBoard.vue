@@ -19,7 +19,6 @@ export default {
     const {
       data: { points, token },
     } = await axios.get("http://13.74.31.101/api/points");
-    console.log("before ", points);
 
     const totals = calculate(points);
     console.log("TOTALS", totals);
@@ -27,8 +26,8 @@ export default {
     const response = await axios.post("http://13.74.31.101/api/points", {
       token,
       points: totals,
-    })
-    console.log(response)
+    });
+    console.log(response);
 
     return {
       token,
