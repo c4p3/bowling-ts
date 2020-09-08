@@ -1,32 +1,40 @@
 <template>
   <div class="hello">
-    <p>{{ points }}</p>
-    <p>{{ token }}</p>
+    <p data-testid="token">{{ token }}</p>
+    <ul>
+      <p data-testid="points">
+        {{ points }}
+      </p>
+      <p data-testid="totals"> {{ totals }}</p>
+    </ul>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue } from "vue-class-component";
 import axios from "axios";
+import { calculate } from "../utils/bowling";
 
-axios.defaults.baseURL = "http://13.74.31.101";
+export default {
+  async setup() {
+    const {
+      data: { points, token },
+    } = await axios.get("http://13.74.31.101/api/points");
+    console.log("before ", points);
 
-export default class BowlingBoard extends Vue {
-  data() {
+    const totals = calculate(points);
+    console.log("TOTALS", totals);
+
+    const response = await axios.post("http://13.74.31.101/api/points", {
+      token,
+      points: totals,
+    })
+    console.log(response)
+
     return {
-      points: Array,
-      token: String,
+      token,
+      points,
+      totals
     };
-  }
-
-  points!: Array<number>;
-  token!: string;
-
-  async created() {
-    await axios.get("/api/points", {}).then(response => {
-      this.points = response.data.points,
-      this.token = response.data.token;
-    });
-  }
-}
+  },
+};
 </script>
