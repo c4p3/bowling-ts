@@ -1,5 +1,10 @@
 # bowling-ts
 
+This small program is for my job application at SKAT.
+
+The program GETs a list of bowling frames from an API, calculates the running totals, and POSTs them to the same API. 
+
+
 ## Project setup
 ```
 yarn install
@@ -19,11 +24,3 @@ yarn build
 ```
 yarn test:unit
 ```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
